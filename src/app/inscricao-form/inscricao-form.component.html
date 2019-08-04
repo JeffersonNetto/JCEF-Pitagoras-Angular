@@ -1,0 +1,251 @@
+<div class="section sm-padding" id="blog">
+    <!-- Container -->
+    <div class="container-fluid">
+        <!-- Row -->
+        <div class="row">
+            <!-- Main -->
+            <main id="main">
+                <div class="blog">
+                    <div class="col-xs-12">
+
+                        <form (ngSubmit)="Salvar()" [formGroup]="form" class="form-horizontal">
+
+                            <div class="col-sm-6">
+                                <h3 class="title">Inscreva-se</h3>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <input class="input" #nome formControlName="nome" id="nome" name="Nome"
+                                            placeholder="Nome" type="text" />
+                                        <label for="nome" style="color:#dc3545"
+                                            *ngIf="form.controls['nome'].touched && !nomeValido(nome.value)"
+                                            data-error="Invalid nome">
+                                            Informe nome e sobrenome
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <input class="input" #cpf formControlName="cpf" id="cpf"
+                                            [textMask]="{mask : cpfMask}" name="cpf" placeholder="CPF" type="text" />
+                                        <label for="cpf" style="color:#dc3545"
+                                            *ngIf="form.controls['cpf'].touched && !cpfValido(cpf.value)"
+                                            data-error="Invalid cpf">
+                                            Informe um CPF válido
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input class="input" #telefone formControlName="telefone"
+                                            [textMask]="{mask : phoneMask}" id="telefone" name="telefone"
+                                            placeholder="Telefone" type="text" />
+                                        <label for="telefone" style="color:#dc3545"
+                                            *ngIf="form.controls['telefone'].touched && !telefoneValido(telefone.value)"
+                                            data-error="Invalid telefone">
+                                            Informe um telefone
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <input class="input" formControlName="email" id="email" name="email"
+                                            placeholder="E-mail" type="text" />
+                                        <label for="email" style="color:#dc3545"
+                                            *ngIf="form.controls['email'].touched && !form.controls['email'].valid"
+                                            data-error="Invalid email">
+                                            E-mail inválido
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" formGroupName="categoria">
+                                    <div class="col-xs-12">
+                                        <label>Informe a categoria</label><br />
+                                        <select id="categoria" class="input col-xs-12 col-md-6" (change)="onChange($event.target.value)"
+                                            >
+                                            <option>Selecione...</option>
+                                            <option [value]="1">Aluno</option>
+                                            <option [value]="2">Ex-aluno</option>
+                                            <option [value]="3">Aluno de outra instituição</option>
+                                            <option [value]="4">Profissional</option>
+                                        </select>
+                                        <label for="categoria" style="color:#dc3545"
+                                            *ngIf="form.controls['categoria'].touched && !form.controls['categoria'].valid"
+                                            data-error="Invalid categoria">
+                                            Informe a categoria
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divEventosEscolhidos" class="col-sm-6" formArrayName="eventos"
+                                >                                
+                                <h3 class="title">Eventos escolhidos</h3>
+                                <div *ngIf="oficinaEscolhida.codigo > 0">
+                                    <strong class="text-danger">OFICINA:</strong>
+                                    <br />
+                                    <em><strong>{{ oficinaEscolhida.titulo }}</strong> em
+                                        {{ oficinaEscolhida.dataHora }}</em>
+                                </div>
+                                <br />
+                                <div *ngIf="palestrasEscolhidas.length > 0">
+                                    <strong class="text-danger">PALESTRA(S):</strong>
+                                    <br />
+                                    <ul>
+                                        <li *ngFor="let palestra of palestrasEscolhidas">
+                                            <em><strong>{{ palestra.titulo }}</strong> em
+                                                {{ palestra.dataHora }}</em>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div *ngIf="!oficinas || oficinas.length <= 0" class="col-xs-12 text-center text-primary">
+                                Carregando...
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                            <div *ngIf="!exibirAlert">
+                                <div class="col-xs-12 text-center" *ngIf="oficinas && oficinas.length > 0">
+                                    <hr />
+                                    <span class="text-danger" style="font-size: xx-small">(Clique no título abaixo para expandir/esconder os itens)</span>
+                                    <h3 title="Clique para expandir ou esconder" style="cursor: pointer;"
+                                        class="title btn-link" data-toggle="collapse" data-target="#ulOficinas"
+                                        aria-expanded="false" aria-controls="ulOficinas">Escolha uma oficina</h3>
+                                    <ul [ngClass]="oficinaEscolhida.codigo > 0 ? 'collapse':'collapse in'"
+                                        id="ulOficinas">
+                                        <li *ngFor="let oficina of oficinas">
+                                            <div class="col-xs-12 col-lg-6">
+                                                <div class="jumbotron">
+                                                    <h3>
+                                                        <strong>{{ oficina.titulo }}</strong>
+                                                    </h3>
+                                                    <div>
+                                                        Descrição: {{ oficina.descricao }}
+                                                    </div>
+                                                    <div>
+                                                        Data: {{ oficina.dataHora }}
+                                                    </div>
+                                                    <div>
+                                                        Palestrante(s): {{ oficina.palestrantes[0].nome | titlecase }}
+                                                        <span *ngIf="oficina.palestrantes[1]">, {{ oficina.palestrantes[1].nome | titlecase }}</span>
+                                                    </div>
+                                                    <br />
+                                                    <div class="text-center">
+                                                        <button type="button" [ngClass]="oficina.escolhido ? 'main-btn': 'outline-btn'"
+                                                            (click)="ExibirEventosEscolhidos(oficina)">Quero
+                                                            participar</button>                                                            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <div *ngIf="!botoes || botoes.length <= 0" class="col-xs-12 text-center text-primary">
+                                Carregando...
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+
+                            <div *ngIf="!exibirAlert">
+                                <div class="form-group">
+                                    <div class="col-xs-12 text-center"
+                                        *ngIf="botoes && botoes.length > 0 && oficinaEscolhida.codigo > 0">
+                                        <hr />
+                                        <span class="text-danger" style="font-size: xx-small">(Clique no título abaixo para expandir/esconder os itens)</span>
+                                        <h3 title="Clique para expandir ou esconder" style="cursor: pointer;"
+                                            class="title btn-link" data-toggle="collapse" data-target="#ulPalestras"
+                                            aria-expanded="false" aria-controls="ulPalestras">Escolha as palestras</h3>
+                                        <div [class]="botoes.length == 5 ? 'col-lg-offset-1':''">
+                                            <div *ngFor="let botao of botoes" [ngClass]="{
+                                            'col-xs-12 col-md-offset-2 col-md-8': botoes.length == 1,
+                                            'col-xs-6 col-md-offset-2 col-md-4': botoes.length == 2,
+                                            'col-xs-4': botoes.length == 3,
+                                            'col-xs-6 col-md-3': botoes.length == 4,
+                                            'col-xs-12 col-md-offset-1 col-md-2': botoes.length == 5
+                                        }">
+                                                <button #b type="button"
+                                                    [ngStyle]="{ 'width': botoes.length > 3 ? '100%' : '50%' }"
+                                                    value="{{ botao }}"
+                                                    [ngClass]="{ 'main-btn': b.value == botaoAtivo, 'outline-btn': b.value != botaoAtivo }"
+                                                    (click)="ExibirEventosDoDia(botao)">
+                                                    <span *ngIf="botao == 1">02/09</span>
+                                                    <span *ngIf="botao == 2">03/09</span>
+                                                    <span *ngIf="botao == 3">04/09</span>
+                                                    <span *ngIf="botao == 4">05/09</span>
+                                                    <span *ngIf="botao == 5">06/09</span>
+                                                </button></div>
+                                        </div>
+                                        <ul id="ulPalestras"
+                                            [ngClass]="palestrasEscolhidas.length >= 4 ? 'collapse':'collapse in'">
+                                            <li *ngFor="let evento of eventosDoDia">
+                                                <div class="col-xs-12 col-lg-6">
+                                                    <div class="jumbotron">
+                                                        <h3>
+                                                            <strong>{{ evento.titulo }}</strong>
+                                                        </h3>
+                                                        <div>
+                                                            Descrição: {{ evento.descricao }}
+                                                        </div>
+                                                        <div>
+                                                            Data: {{ evento.dataHora }}
+                                                        </div>
+                                                        <div>
+                                                            Palestrante(s): {{ evento.palestrantes[0].nome | titlecase }}
+                                                            <span *ngIf="evento.palestrantes[1]">, {{ evento.palestrantes[1].nome | titlecase }}</span>
+                                                        </div>
+                                                        <br />
+                                                        <div class="text-center">
+                                                            <button type="button" [ngClass]="evento.escolhido ? 'main-btn': 'outline-btn'"
+                                                                (click)="ExibirEventosEscolhidos(evento)">Quero
+                                                                participar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group" *ngIf="!exibirAlert">
+                    
+                                <div *ngIf="form.valid && inscricao.eventos.length > 0" class="col-xs-12 text-center alert alert-warning">
+                                    <p>
+                                    Antes de clicar em Salvar, certifique-se de que escolheu todos os eventos dos quais gostaria de participar.</p>
+                                    <p>
+                                    Cada inscrito pode participar de 1 oficina e até 4 palestras.</p>
+                                    <p>
+                                    <a style="cursor: pointer;" (click)="changeFocus()" class="hidden-lg">Clique aqui para verificar suas escolhas</a></p>
+                                </div>
+                                <div class="col-xs-12 text-center">
+                                    <button
+                                        [ngClass]="form.valid && inscricao.eventos.length > 0 ? 'main-btn' : 'outline-btn'"
+                                        type="submit"
+                                        [disabled]="!form.valid || inscricao.eventos.length == 0">Salvar</button>
+                                </div>
+                            </div>
+                            <ngx-spinner bdOpacity=0.9 bdColor="#ffffff" size="default" color="#25558a" type="ball-beat"
+                                [fullScreen]="true">
+                                <p style="color: white"> Loading... </p>
+                            </ngx-spinner>
+                            <div *ngIf="exibirAlert" class="form-group">
+                                <div class="col-xs-12 text-center alert alert-success" role="alert">
+                                    <p>
+                                    Pré-inscrição realizada com sucesso!</p>
+                                    <p>Um e-mail foi enviado para o endereço
+                                    informado. Verifique sua caixa de spam!</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+<div *ngIf="!Palestrantes" class="text-center text-primary">	
+	Carregando Palestrantes...
+	<i class="fa fa-spinner fa-spin"></i>
+</div>
+	
+	<!-- Team -->
+	<div id="team" class="section sm-padding" *ngIf="Palestrantes && Palestrantes.length > 0">
+
+		<!-- Container -->
+		<div class="container">
+
+			<!-- Row -->
+			<div class="row">
+
+				<!-- Section header -->
+				<div class="section-header text-center">
+					<h2 class="title">Palestrantes</h2>
+				</div>
+				<!-- /Section header -->
+
+				<!-- team -->
+			<div class="">
+				<div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let palestrante of Palestrantes" style="height: 557px">
+					<div class="team">
+						<div class="team-img">
+							<img style="height: 250px" class="" src="../../assets/img/{{ palestrante.foto }}" alt="">
+							<!-- <div class="overlay">
+								<div class="team-social">
+									<a href="#"><i class="fa fa-facebook"></i></a>
+									<a href="#"><i class="fa fa-google-plus"></i></a>
+									<a href="#"><i class="fa fa-twitter"></i></a>
+								</div> 
+							</div>-->
+						</div>
+						<div class="team-content" style="line-height: 1.1 !important;">
+							<h5>{{ palestrante.nome }}</h5>
+							<span style="font-size: 12px; text-transform: none;">{{ palestrante.descricao }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+				<!-- /team -->
+
+				<!-- team
+				<div class="col-sm-4">
+					<div class="team">
+						<div class="team-img">
+							<img class="img-responsive" src="../../assets/img/team2.jpg" alt="">
+							<div class="overlay">
+								<div class="team-social">
+									<a href="#"><i class="fa fa-facebook"></i></a>
+									<a href="#"><i class="fa fa-google-plus"></i></a>
+									<a href="#"><i class="fa fa-twitter"></i></a>
+								</div>
+							</div>
+						</div>
+						<div class="team-content">
+							<h3>John Doe</h3>
+							<span>Web Designer</span>
+						</div>
+					</div>
+				</div>		
+				
+				<div class="col-sm-4">
+					<div class="team">
+						<div class="team-img">
+							<img class="img-responsive" src="../../assets/img/team3.jpg" alt="">
+							<div class="overlay">
+								<div class="team-social">
+									<a href="#"><i class="fa fa-facebook"></i></a>
+									<a href="#"><i class="fa fa-google-plus"></i></a>
+									<a href="#"><i class="fa fa-twitter"></i></a>
+								</div>
+							</div>
+						</div>
+						<div class="team-content">
+							<h3>John Doe</h3>
+							<span>Web Designer</span>
+						</div>
+					</div>
+				</div>
+				/team -->
+
+			</div>
+			<!-- /Row -->
+
+		</div>
+		<!-- /Container -->
+
+	</div>
+	<!-- /Team -->

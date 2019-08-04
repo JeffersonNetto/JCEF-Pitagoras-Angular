@@ -1,0 +1,52 @@
+<ngx-spinner bdOpacity=0.9 bdColor="#ffffff" size="default" color="#25558a" type="ball-beat" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+
+<div class="text-primary" *ngIf="!RetornoInscricao.mensagem">
+  Carregando...
+  <i class="fa fa-spinner fa-spin"></i>
+</div>
+
+<div class="section sm-padding">
+  <div class="container">
+    <div class="row">
+      <div class="section-header text-center" *ngIf="RetornoInscricao.inscricao.statusPagamento.codigo == 2">
+        <h2 class="title">Inscrição confirmada com sucesso!</h2>
+        <div class="padding-2 text-center">
+          <br />
+          <h4>
+            Obrigado por se inscrever na II Semana de Estudos Farmacêuticos.
+          </h4>
+          <br /><br />
+          <div>
+            <img src="../../assets/img/logo_farmacia.png" alt="" width="250" />
+          </div>
+          <br /><br />
+          <h4>
+            Aguardamos você a partir do dia 02 de setembro!
+          </h4>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="section-header text-center" *ngIf="RetornoInscricao.inscricao.statusPagamento.codigo == 1">        
+          <h2 class="title">Atenção!</h2>        
+        <div class="padding-2 text-center">
+          <br />
+          <h4>
+            Obrigado por se inscrever na II Semana de Estudos Farmacêuticos! No entanto, seu pagamento ainda está em
+            processamento no Pagseguro.
+          </h4>
+          <br />
+          <h4>
+            Continuaremos verificando e você receberá um e-mail de confirmação de sua inscrição quando tudo estiver
+            concluído.
+          </h4>
+          <div>
+            <img src="../../assets/img/logo_farmacia.png" alt="" width="250" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
