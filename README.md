@@ -1,2 +1,2 @@
-# SAEF-Pitagoras-Angular
-Semana Acadêmica de Educação Física
+# JCEF-Pitagoras-Angular
+I Jornada Científica da Educação Física
