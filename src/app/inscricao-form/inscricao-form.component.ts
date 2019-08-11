@@ -20,7 +20,7 @@ export class InscricaoFormComponent implements OnInit {
   form: FormGroup;
   title: string = 'Inscreva-se';
   inscricao: Inscricao = new Inscricao();
-  oficinas: Evento[] = [];
+  
   palestras: Evento[] = [];
   eventosDoDia: Evento[] = [];
   eventos: Evento[] = [];
@@ -33,9 +33,9 @@ export class InscricaoFormComponent implements OnInit {
   email: Email = new Email();
   botoes: number[] = [];
   botaoAtivo: number;
-  oficinaEscolhida: Evento = new Evento();
+  
   palestrasEscolhidas: Evento[] = [];
-  expandirOficinas: boolean = true;
+  
   //dataLimiteValorPromocional = new Date('2019-07-29 23:59:59');
 
   constructor(
@@ -75,10 +75,7 @@ export class InscricaoFormComponent implements OnInit {
 
   ngOnInit() {
     this.service.getEventos().subscribe(
-      success => {
-
-        this.oficinas = success.filter((e) => e.tipoEvento.codigo == 2);
-        //console.log(this.oficinas);
+      success => {                
 
         this.palestras = success.filter((e) => e.tipoEvento.codigo == 1);
 
@@ -126,13 +123,13 @@ export class InscricaoFormComponent implements OnInit {
         this.email.email = success['email'];
         this.email.assunto = "Pré-inscrição realizada com sucesso";
         this.email.mensagem = `
-        Seja Bem Vindo a II Semana de Estudos Farmacêuticos da Faculdade Pitágoras! É um prazer tê-lo conosco em nosso evento.<br /><br />
+        Seja Bem Vindo a I Jornada Científica da Educação Física da Faculdade Pitágoras! É um prazer tê-lo conosco em nosso evento.<br /><br />
         Sua pré-inscrição foi realizada com sucesso! Para confirmá-la, acesse o link abaixo e efetue o pagamento.<br /><br />
         <a href='${success['urlPagSeguro']}'>${success['urlPagSeguro']}</a><br /><br />
         Após o pagamento, você será redirecionado ao site. Caso isso não aconteça automaticamente, clique no link " voltar para a loja".
         <br/><br/>
         Atenciosamente,<br/><br/>
-        II Semana de Estudos Farmacêuticos - Faculdade Pitágoras Ipatinga<br/><br/>
+        I Jornada Científica da Educação Física - Faculdade Pitágoras Ipatinga<br/><br/>
         Comissão Organizadora<br /><br />`;
 
         this.emailService.EnviarInscricaoConfirmada(this.email).subscribe(
@@ -163,31 +160,16 @@ export class InscricaoFormComponent implements OnInit {
       //v = new Date() < this.dataLimiteValorPromocional ? 40 : 55;
 
       this.form.patchValue({
-        categoria: { codigo: 1, descricao: 'Aluno', valor: 55 }
+        categoria: { codigo: 1, descricao: 'Aluno', valor: 30 }
       });
     } else if (value == 2) {
 
       //v = new Date() < this.dataLimiteValorPromocional ? 40 : 55;
 
       this.form.patchValue({
-        categoria: { codigo: 2, descricao: 'Ex-aluno', valor: 55 }
+        categoria: { codigo: 2, descricao: 'Não aluno', valor: 40 }
       });
-    } else if (value == 3) {
-
-      //v = new Date() < this.dataLimiteValorPromocional ? 50 : 70;
-
-      this.form.patchValue({
-        categoria: { codigo: 3, descricao: 'Aluno de outra instituição', valor: 70 }
-      });
-    }
-    else if (value == 4) {
-
-      //v = new Date() < this.dataLimiteValorPromocional ? 50 : 70;
-
-      this.form.patchValue({
-        categoria: { codigo: 3, descricao: 'Profissional', valor: 70 }
-      });
-    }
+    } 
     else {
       this.form.patchValue({
         categoria: { codigo: null, descricao: null, valor: null }
@@ -217,27 +199,6 @@ export class InscricaoFormComponent implements OnInit {
       );
     }
 
-    if (evento.tipoEvento.codigo == 2) {
-
-      this.oficinas.map((o) => {
-        if (o != evento) {
-          o.escolhido = false;
-        }
-      });
-
-      this.oficinaEscolhida = evento;
-
-      this.definirBotoes();
-
-      this.botoes.splice(this.botoes.findIndex(b => b == evento.diaDaSemana), 1);
-
-      //      console.log(this.botoes);
-
-      this.inscricao.eventos = this.inscricao.eventos.filter(
-        (e) => e.tipoEvento.codigo === 1
-      );
-    }
-
     if (evento.tipoEvento.codigo == 1) {
 
       this.palestras.map((p) => {
@@ -251,14 +212,16 @@ export class InscricaoFormComponent implements OnInit {
       );
 
       this.palestrasEscolhidas.push(evento);
+      this.palestrasEscolhidas.sort((a, b) => { return a.diaDaSemana - b.diaDaSemana });
+      
     }
 
     this.inscricao.eventos.push(evento);
 
-    // console.log('oficinas', this.oficinas);
+    
     // console.log('palestras', this.palestras);
     // console.log('eventos', this.eventos);
-    // console.log('oficinaEscolhida', this.oficinaEscolhida);
+    
     // console.log('palestrasEscolhidas', this.palestrasEscolhidas);
     // console.log('inscricao.eventos', this.inscricao.eventos);
   }

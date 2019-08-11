@@ -49,6 +49,8 @@ export class RetornoPagamentoComponent implements OnInit {
             this.email.mensagem = `Olá <em>${this.RetornoInscricao.inscricao.nome}</em><br /><br />Sua inscrição está confirmada!<br /><br />`;
             this.email.mensagem += "Eventos escolhidos:<br /><br />";
   
+            this.RetornoInscricao.inscricao.eventos.sort((a, b) => { return a.diaDaSemana - b.diaDaSemana });
+            
             this.RetornoInscricao.inscricao.eventos.forEach((e) => {
   
               let palestrantes:string = '';
@@ -68,7 +70,7 @@ export class RetornoPagamentoComponent implements OnInit {
   
             this.email.mensagem += `<br/><br/>
             Atenciosamente,<br/><br/>
-            II Semana de Estudos Farmacêuticos - Faculdade Pitágoras Ipatinga<br/><br/>
+            I Jornada Científica da Educação Física - Faculdade Pitágoras Ipatinga<br/><br/>
             Comissão Organizadora<br /><br />`;
   
             this.emailService.EnviarInscricaoConfirmada(this.email).subscribe(

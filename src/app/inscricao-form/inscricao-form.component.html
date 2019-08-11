@@ -66,9 +66,7 @@
                                             >
                                             <option>Selecione...</option>
                                             <option [value]="1">Aluno</option>
-                                            <option [value]="2">Ex-aluno</option>
-                                            <option [value]="3">Aluno de outra instituição</option>
-                                            <option [value]="4">Profissional</option>
+                                            <option [value]="2">Não aluno</option>                                            
                                         </select>
                                         <label for="categoria" style="color:#dc3545"
                                             *ngIf="form.controls['categoria'].touched && !form.controls['categoria'].valid"
@@ -80,13 +78,7 @@
                             </div>
                             <div id="divEventosEscolhidos" class="col-sm-6" formArrayName="eventos"
                                 >                                
-                                <h3 class="title">Eventos escolhidos</h3>
-                                <div *ngIf="oficinaEscolhida.codigo > 0">
-                                    <strong class="text-danger">OFICINA:</strong>
-                                    <br />
-                                    <em><strong>{{ oficinaEscolhida.titulo }}</strong> em
-                                        {{ oficinaEscolhida.dataHora }}</em>
-                                </div>
+                                <h3 class="title">Eventos escolhidos</h3>                       
                                 <br />
                                 <div *ngIf="palestrasEscolhidas.length > 0">
                                     <strong class="text-danger">PALESTRA(S):</strong>
@@ -98,50 +90,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
-
-                            <div *ngIf="!oficinas || oficinas.length <= 0" class="col-xs-12 text-center text-primary">
-                                Carregando...
-                                <i class="fa fa-spinner fa-spin"></i>
-                            </div>
-                            <div *ngIf="!exibirAlert">
-                                <div class="col-xs-12 text-center" *ngIf="oficinas && oficinas.length > 0">
-                                    <hr />
-                                    <span class="text-danger" style="font-size: xx-small">(Clique no título abaixo para expandir/esconder os itens)</span>
-                                    <h3 title="Clique para expandir ou esconder" style="cursor: pointer;"
-                                        class="title btn-link" data-toggle="collapse" data-target="#ulOficinas"
-                                        aria-expanded="false" aria-controls="ulOficinas">Escolha uma oficina</h3>
-                                    <ul [ngClass]="oficinaEscolhida.codigo > 0 ? 'collapse':'collapse in'"
-                                        id="ulOficinas">
-                                        <li *ngFor="let oficina of oficinas">
-                                            <div class="col-xs-12 col-lg-6">
-                                                <div class="jumbotron">
-                                                    <h3>
-                                                        <strong>{{ oficina.titulo }}</strong>
-                                                    </h3>
-                                                    <div>
-                                                        Descrição: {{ oficina.descricao }}
-                                                    </div>
-                                                    <div>
-                                                        Data: {{ oficina.dataHora }}
-                                                    </div>
-                                                    <div>
-                                                        Palestrante(s): {{ oficina.palestrantes[0].nome | titlecase }}
-                                                        <span *ngIf="oficina.palestrantes[1]">, {{ oficina.palestrantes[1].nome | titlecase }}</span>
-                                                    </div>
-                                                    <br />
-                                                    <div class="text-center">
-                                                        <button type="button" [ngClass]="oficina.escolhido ? 'main-btn': 'outline-btn'"
-                                                            (click)="ExibirEventosEscolhidos(oficina)">Quero
-                                                            participar</button>                                                            
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                            </div>
+                            </div>                    
 
                             <div *ngIf="!botoes || botoes.length <= 0" class="col-xs-12 text-center text-primary">
                                 Carregando...
@@ -151,7 +100,7 @@
                             <div *ngIf="!exibirAlert">
                                 <div class="form-group">
                                     <div class="col-xs-12 text-center"
-                                        *ngIf="botoes && botoes.length > 0 && oficinaEscolhida.codigo > 0">
+                                        *ngIf="botoes && botoes.length > 0">
                                         <hr />
                                         <span class="text-danger" style="font-size: xx-small">(Clique no título abaixo para expandir/esconder os itens)</span>
                                         <h3 title="Clique para expandir ou esconder" style="cursor: pointer;"
@@ -217,9 +166,7 @@
                     
                                 <div *ngIf="form.valid && inscricao.eventos.length > 0" class="col-xs-12 text-center alert alert-warning">
                                     <p>
-                                    Antes de clicar em Salvar, certifique-se de que escolheu todos os eventos dos quais gostaria de participar.</p>
-                                    <p>
-                                    Cada inscrito pode participar de 1 oficina e até 4 palestras.</p>
+                                    Antes de clicar em Salvar, certifique-se de que escolheu todos os eventos dos quais gostaria de participar.</p>                                    
                                     <p>
                                     <a style="cursor: pointer;" (click)="changeFocus()" class="hidden-lg">Clique aqui para verificar suas escolhas</a></p>
                                 </div>

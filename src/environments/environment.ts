@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API: 'http://sefpitagoras.gearhostpreview.com/api/'
+  API: 'http://jcefpitagoras.gearhostpreview.com/api/'
 };
 
 /*

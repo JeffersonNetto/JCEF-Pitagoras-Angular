@@ -3,4 +3,5 @@ export class Email{
     email: string;
     assunto: string;
     mensagem: string;
+    sistema: number = 1;
 }
