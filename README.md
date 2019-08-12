@@ -1,2 +1,2 @@
 # JCEF-Pitagoras-Angular
-I Jornada Científica da Educação Física
+I Jornada Acadêmica da Educação Física

@@ -123,13 +123,13 @@ export class InscricaoFormComponent implements OnInit {
         this.email.email = success['email'];
         this.email.assunto = "Pré-inscrição realizada com sucesso";
         this.email.mensagem = `
-        Seja Bem Vindo a I Jornada Científica da Educação Física da Faculdade Pitágoras! É um prazer tê-lo conosco em nosso evento.<br /><br />
+        Seja Bem Vindo a I Jornada Acadêmica da Educação Física da Faculdade Pitágoras! É um prazer tê-lo conosco em nosso evento.<br /><br />
         Sua pré-inscrição foi realizada com sucesso! Para confirmá-la, acesse o link abaixo e efetue o pagamento.<br /><br />
         <a href='${success['urlPagSeguro']}'>${success['urlPagSeguro']}</a><br /><br />
         Após o pagamento, você será redirecionado ao site. Caso isso não aconteça automaticamente, clique no link " voltar para a loja".
         <br/><br/>
         Atenciosamente,<br/><br/>
-        I Jornada Científica da Educação Física - Faculdade Pitágoras Ipatinga<br/><br/>
+        I Jornada Acadêmica da Educação Física - Faculdade Pitágoras Ipatinga<br/><br/>
         Comissão Organizadora<br /><br />`;
 
         this.emailService.EnviarInscricaoConfirmada(this.email).subscribe(

@@ -70,7 +70,7 @@ export class RetornoPagamentoComponent implements OnInit {
   
             this.email.mensagem += `<br/><br/>
             Atenciosamente,<br/><br/>
-            I Jornada Científica da Educação Física - Faculdade Pitágoras Ipatinga<br/><br/>
+            I Jornada Acadêmica da Educação Física - Faculdade Pitágoras Ipatinga<br/><br/>
             Comissão Organizadora<br /><br />`;
   
             this.emailService.EnviarInscricaoConfirmada(this.email).subscribe(
