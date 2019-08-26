@@ -160,14 +160,14 @@ export class InscricaoFormComponent implements OnInit {
       //v = new Date() < this.dataLimiteValorPromocional ? 40 : 55;
 
       this.form.patchValue({
-        categoria: { codigo: 1, descricao: 'Aluno', valor: 30 }
+        categoria: { codigo: 1, descricao: 'Aluno', valor: 40 }
       });
     } else if (value == 2) {
 
       //v = new Date() < this.dataLimiteValorPromocional ? 40 : 55;
 
       this.form.patchValue({
-        categoria: { codigo: 2, descricao: 'Não aluno', valor: 40 }
+        categoria: { codigo: 2, descricao: 'Não aluno', valor: 50 }
       });
     } 
     else {

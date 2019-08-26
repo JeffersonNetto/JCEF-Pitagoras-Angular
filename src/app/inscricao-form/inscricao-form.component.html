@@ -106,11 +106,12 @@
                                         <h3 title="Clique para expandir ou esconder" style="cursor: pointer;"
                                             class="title btn-link" data-toggle="collapse" data-target="#ulPalestras"
                                             aria-expanded="false" aria-controls="ulPalestras">Escolha as palestras</h3>
+                                            <span class="text-danger" style="font-size: xx-small">(Clique nos botões abaixo para exibir os eventos do dia)</span>    
                                         <div [class]="botoes.length == 5 ? 'col-lg-offset-1':''">
                                             <div *ngFor="let botao of botoes" [ngClass]="{
                                             'col-xs-12 col-md-offset-2 col-md-8': botoes.length == 1,
                                             'col-xs-6 col-md-offset-2 col-md-4': botoes.length == 2,
-                                            'col-xs-4': botoes.length == 3,
+                                            'col-xs-12 col-sm-4': botoes.length == 3,
                                             'col-xs-6 col-md-3': botoes.length == 4,
                                             'col-xs-12 col-md-offset-1 col-md-2': botoes.length == 5
                                         }">
